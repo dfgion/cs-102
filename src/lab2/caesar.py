@@ -11,15 +11,20 @@ def encrypt_caesar(plaintext: str, shift: int = 3) -> str:
     ''
     """
     ciphertext = ""
+    upper = False
     for symbol in plaintext:
-        if symbol == 'X':
-            ciphertext += 'A'
-        elif symbol == 'Y':
-            ciphertext += 'B'
-        elif symbol == 'Z':
-            ciphertext += 'C'
+        if ((ord(symbol.upper())>64) and (ord(symbol.upper())< 91)):
+            if symbol.isupper():
+                upper = True
+            symbol = symbol.upper()
+            number = ord(symbol)+shift if (ord(symbol)+shift)<91 else 64+(ord(symbol)+shift)-90
+            if upper == True:
+                ciphertext += chr(number)
+            else:
+                ciphertext += chr(number).lower()
+            upper = False
         else:
-            ciphertext+=chr(ord(symbol)+shift)
+            ciphertext += symbol
     return ciphertext
 
 
@@ -36,16 +41,20 @@ def decrypt_caesar(ciphertext: str, shift: int = 3) -> str:
     ''
     """
     plaintext = ""
+    upper = False
     for symbol in ciphertext:
-        if symbol == 'A':
-            plaintext += 'X'
-        elif symbol == 'B':
-            plaintext += 'Y'
-        elif symbol == 'C':
-            plaintext += 'Z'
+        if ((ord(symbol.upper())>64) and (ord(symbol.upper())< 91)):
+            if symbol.isupper():
+                upper = True
+            symbol = symbol.upper()
+            number = ord(symbol)-shift if (ord(symbol)-shift)>64 else 91-(-(ord(symbol)-shift)+65)
+            if upper == True:
+                plaintext += chr(number)
+            else:
+                plaintext += chr(number).lower()
+            upper = False
         else:
-            plaintext+=chr(ord(symbol)-shift)
+            plaintext += symbol
     return plaintext
-print(ord('Z'))
-print(encrypt_caesar('PYTHON'))
-print(decrypt_caesar('SBWKRQ'))
+print(encrypt_caesar('Sbwkrq3.6'))
+print(decrypt_caesar('Veznut3.6'))
