@@ -1,5 +1,4 @@
 import unittest
-import sys
 from src.lab2.vigenre import encrypt_vigenere, decrypt_vigenere
 
 class CalculatorTestCase(unittest.TestCase):

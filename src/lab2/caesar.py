@@ -1,3 +1,5 @@
+from pprint import pprint
+
 def encrypt_caesar(plaintext: str, shift: int = 3) -> str:
     """
     Encrypts plaintext using a Caesar cipher.
@@ -56,5 +58,7 @@ def decrypt_caesar(ciphertext: str, shift: int = 3) -> str:
         else:
             plaintext += symbol
     return plaintext
+
+
 print(encrypt_caesar('Sbwkrq3.6'))
 print(decrypt_caesar('Veznut3.6'))

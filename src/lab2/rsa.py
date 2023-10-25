@@ -35,8 +35,9 @@ def gcd(a: int, b: int) -> int:
     >>> gcd(3, 7)
     1
     """
-    # PUT YOUR CODE HERE
-    pass
+    while b:
+        a, b = b, a%b
+    return a
 
 
 def multiplicative_inverse(e: int, phi: int) -> int:
@@ -46,8 +47,25 @@ def multiplicative_inverse(e: int, phi: int) -> int:
     >>> multiplicative_inverse(7, 40)
     23
     """
-    # PUT YOUR CODE HERE
-    pass
+    elements = []
+    const_phi = phi
+    mod = phi % e
+    elements.append([phi, e, mod, phi//e, 0, 0])
+    while mod != 0:
+        phi=e
+        e=mod
+        mod = phi%e
+        elements.append([phi, e, mod, phi//e, 0, 0])
+    elements[-1][-1] = 1
+    index = -2
+    for i in range(1, len(elements)):
+        elements[index][-2] = elements[index+1][-1]
+        elements[index][-1] = elements[index+1][-2]-elements[index+1][-1]*elements[index][3]
+        index -=1
+    d = elements[0][-1] % const_phi
+    return d
+    
+
 
 
 def generate_keypair(p: int, q: int) -> tp.Tuple[tp.Tuple[int, int], tp.Tuple[int, int]]:
@@ -56,11 +74,11 @@ def generate_keypair(p: int, q: int) -> tp.Tuple[tp.Tuple[int, int], tp.Tuple[in
     elif p == q:
         raise ValueError("p and q cannot be equal")
 
-    n = p*q
-    # PUT YOUR CODE HERE
+    #n = pq
+    n = p * q
 
-    phi = (p-1)*(q-1)
-    # PUT YOUR CODE HERE
+    #phi = (p-1)(q-1)
+    phi = (p - 1) * (q - 1)
 
     # Choose an integer e such that e and phi(n) are coprime
     e = random.randrange(1, phi)
@@ -99,16 +117,17 @@ def decrypt(pk: tp.Tuple[int, int], ciphertext: tp.List[int]) -> str:
 
 
 if __name__ == "__main__":
-    print("RSA Encrypter/ Decrypter")
-    p = int(input("Enter a prime number (17, 19, 23, etc): "))
-    q = int(input("Enter another prime number (Not one you entered above): "))
-    print("Generating your public/private keypairs now . . .")
-    public, private = generate_keypair(p, q)
-    print("Your public key is ", public, " and your private key is ", private)
-    message = input("Enter a message to encrypt with your private key: ")
-    encrypted_msg = encrypt(private, message)
-    print("Your encrypted message is: ")
-    print("".join(map(lambda x: str(x), encrypted_msg)))
-    print("Decrypting message with public key ", public, " . . .")
-    print("Your message is:")
-    print(decrypt(public, encrypted_msg))
+    print(multiplicative_inverse(25, 72))
+    # print("RSA Encrypter/ Decrypter")
+    # p = int(input("Enter a prime number (17, 19, 23, etc): "))
+    # q = int(input("Enter another prime number (Not one you entered above): "))
+    # print("Generating your public/private keypairs now . . .")
+    # public, private = generate_keypair(p, q)
+    # print("Your public key is ", public, " and your private key is ", private)
+    # message = input("Enter a message to encrypt with your private key: ")
+    # encrypted_msg = encrypt(private, message)
+    # print("Your encrypted message is: ")
+    # print("".join(map(lambda x: str(x), encrypted_msg)))
+    # print("Decrypting message with public key ", public, " . . .")
+    # print("Your message is:")
+    # print(decrypt(public, encrypted_msg))

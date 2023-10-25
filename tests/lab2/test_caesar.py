@@ -1,5 +1,4 @@
 import unittest
-import sys
 from src.lab2.caesar import encrypt_caesar, decrypt_caesar
 
 class CalculatorTestCase(unittest.TestCase):
