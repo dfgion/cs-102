@@ -1,5 +1,6 @@
 import random
 import typing as tp
+import math
 
 
 def is_prime(n: int) -> bool:
@@ -12,8 +13,18 @@ def is_prime(n: int) -> bool:
     >>> is_prime(8)
     False
     """
-    # PUT YOUR CODE HERE
-    pass
+    if n == 2:
+        return True
+    if n <= 1:
+        return False
+    if n % 2 == 0:
+        return False
+    i = 3
+    while i <= math.sqrt(n):
+        if n % i == 0:
+            return False
+        i+=2
+    return True
 
 
 def gcd(a: int, b: int) -> int:
@@ -24,8 +35,9 @@ def gcd(a: int, b: int) -> int:
     >>> gcd(3, 7)
     1
     """
-    # PUT YOUR CODE HERE
-    pass
+    while b:
+        a, b = b, a%b
+    return a
 
 
 def multiplicative_inverse(e: int, phi: int) -> int:
@@ -35,8 +47,25 @@ def multiplicative_inverse(e: int, phi: int) -> int:
     >>> multiplicative_inverse(7, 40)
     23
     """
-    # PUT YOUR CODE HERE
-    pass
+    elements = []
+    const_phi = phi
+    mod = phi % e
+    elements.append([phi, e, mod, phi//e, 0, 0])
+    while mod != 0:
+        phi=e
+        e=mod
+        mod = phi%e
+        elements.append([phi, e, mod, phi//e, 0, 0])
+    elements[-1][-1] = 1
+    index = -2
+    for i in range(1, len(elements)):
+        elements[index][-2] = elements[index+1][-1]
+        elements[index][-1] = elements[index+1][-2]-elements[index+1][-1]*elements[index][3]
+        index -=1
+    d = elements[0][-1] % const_phi
+    return d
+    
+
 
 
 def generate_keypair(p: int, q: int) -> tp.Tuple[tp.Tuple[int, int], tp.Tuple[int, int]]:
@@ -45,11 +74,11 @@ def generate_keypair(p: int, q: int) -> tp.Tuple[tp.Tuple[int, int], tp.Tuple[in
     elif p == q:
         raise ValueError("p and q cannot be equal")
 
-    # n = pq
-    # PUT YOUR CODE HERE
+    #n = pq
+    n = p * q
 
-    # phi = (p-1)(q-1)
-    # PUT YOUR CODE HERE
+    #phi = (p-1)(q-1)
+    phi = (p - 1) * (q - 1)
 
     # Choose an integer e such that e and phi(n) are coprime
     e = random.randrange(1, phi)
