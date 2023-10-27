@@ -188,7 +188,7 @@ def generate_sudoku(N: int) -> tp.List[tp.List[str]]:
     sudoku = solve(sudoku)
     list_pos = [(x, y) for x in range(0, 9) for y in range(0, 9)]
     count = 80
-    # filling positions in random places
+    # filling dots in random places
     for i in range(81-N):
         pos_number = randint(0, count)
         sudoku[list_pos[pos_number][0]][list_pos.pop(pos_number)[1]] = '.'
