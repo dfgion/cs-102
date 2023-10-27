@@ -1,5 +1,6 @@
 import pathlib
 import typing as tp
+from random import randint
 
 T = tp.TypeVar("T")
 
@@ -177,7 +178,14 @@ def generate_sudoku(N: int) -> tp.List[tp.List[str]]:
     >>> check_solution(solution)
     True
     """
-    pass
+    pos_list = []
+    for i in range(N):
+        pos_list.append((randint(0, 8), randint(0, 8)))
+    #generate empty sudoku place
+    sudoku = [['.' for i in range(9)] for i in range(9)]
+    for pos in pos_list:
+        sudoku[pos[0]][pos[1]] = str(randint(1, 9))
+    return sudoku
 
 
 if __name__ == "__main__":
