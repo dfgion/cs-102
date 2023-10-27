@@ -180,11 +180,11 @@ def generate_sudoku(N: int) -> tp.List[tp.List[str]]:
     """
     #generate empty sudoku place
     sudoku = [['.' for i in range(9)] for i in range(9)]
-    # receiving the random positions in sukodu place for possibility make random sudoku
+    # receiving the random positions in sukodu place for possibility make random sudoku in next step(generate solution sudoku)
     list_pos = [(randint(0, 8), randint(0, 8)) for i in range(randint(3, 5))]
     for pos in list_pos:
         sudoku[pos[0]][pos[1]] = str(randint(1, 9))
-    # generate solution sudoku
+    # generate solution sudoku 
     sudoku = solve(sudoku)
     list_pos = [(x, y) for x in range(0, 9) for y in range(0, 9)]
     count = 80
