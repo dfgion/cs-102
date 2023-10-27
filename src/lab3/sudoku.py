@@ -178,13 +178,22 @@ def generate_sudoku(N: int) -> tp.List[tp.List[str]]:
     >>> check_solution(solution)
     True
     """
-    pos_list = []
-    for i in range(N):
-        pos_list.append((randint(0, 8), randint(0, 8)))
     #generate empty sudoku place
     sudoku = [['.' for i in range(9)] for i in range(9)]
-    for pos in pos_list:
+    # receiving the random positions in sukodu place for possibility make random sudoku
+    list_pos = [(randint(0, 8), randint(0, 8)) for i in range(randint(3, 5))]
+    for pos in list_pos:
         sudoku[pos[0]][pos[1]] = str(randint(1, 9))
+    # generate solution sudoku
+    sudoku = solve(sudoku)
+    list_pos = [(x, y) for x in range(0, 9) for y in range(0, 9)]
+    count = 80
+    # filling positions in random places
+    for i in range(81-N):
+        pos_number = randint(0, count)
+        sudoku[list_pos[pos_number][0]][list_pos.pop(pos_number)[1]] = '.'
+        count -=1
+
     return sudoku
 
 
