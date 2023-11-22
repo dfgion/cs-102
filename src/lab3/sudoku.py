@@ -114,11 +114,11 @@ def find_possible_values(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -
     True
     """
     occupied_numbers = {}
-    row_numbers = {int(elem) for elem in get_row(grid, (pos[0], 0)) if elem != '.'}
-    col_numbers = {int(elem) for elem in get_col(grid, (0, pos[1])) if elem != '.'}
-    block_numbers = {int(elem) for elem in get_block(grid, pos) if elem != '.'}
+    row_numbers = {elem for elem in get_row(grid, (pos[0], 0)) if elem != '.'}
+    col_numbers = {elem for elem in get_col(grid, (0, pos[1])) if elem != '.'}
+    block_numbers = {elem for elem in get_block(grid, pos) if elem != '.'}
     occupied_numbers= {*row_numbers, *col_numbers, *block_numbers}
-    res = {1, 2, 3, 4, 5, 6, 7, 8, 9} - occupied_numbers
+    res = {'1', '2', '3', '4', '5', '6', '7', '8', '9'} - occupied_numbers
     return set(sorted(res))
 
 
@@ -150,11 +150,11 @@ def check_solution(solution: tp.List[tp.List[str]]) -> bool:
     # TODO: Add doctests with bad puzzles
     for row in range(len(solution)):
         for col in range(len(solution[row])):
-            if (get_col(solution, (row, col)).count(solution[row][col]) == 1) and (get_row(solution, (row, col)).count(solution[row][col]) == 1) and (get_block(solution, (row, col)).count(solution[row][col]) == 1):
-                return True
+            if (get_col(solution, (row, col)).count(solution[row][col]) == 1) and (get_row(solution, (row, col)).count(solution[row][col]) == 1) and (get_block(solution, (row, col)).count(solution[row][col]) == 1) and (solution[row][col] != '.'):
+                pass
             else:
                 return False
-
+    return True
 
 
 def generate_sudoku(N: int) -> tp.List[tp.List[str]]:
