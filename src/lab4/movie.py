@@ -55,8 +55,8 @@ class Cinema:
 
 
 if __name__ == "__main__":
-    films_file = r'src\lab4\films.txt'
-    history_file = r'src\lab4\history.txt'
+    films_file = r'tests\lab4\films.txt'
+    history_file = r'tests\lab4\history.txt'
     user_views = '1, 2'
     recommendation_service = Cinema(films_file, history_file, user_views)
     recommendation_service.recommend_movie()
