@@ -1,4 +1,7 @@
 import unittest
+import sys
+sys.path.append(r'C:\Users\Даниил\Desktop\cs-102')
+
 from src.lab4.movie import Cinema
 
 
