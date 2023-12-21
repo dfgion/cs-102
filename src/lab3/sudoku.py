@@ -205,5 +205,6 @@ if __name__ == "__main__":
         solution = solve(grid)
         if not solution:
             print(f"Puzzle {fname} can't be solved")
+            print(':(')
         else:
             display(solution)
